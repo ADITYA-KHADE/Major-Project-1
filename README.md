@@ -55,10 +55,10 @@ Both models (LSTM-CNN and RoBERTa) are trained on Dataset_1.csv to ensure fair c
 
 - Consistent data loading and preprocessing for both models
 - Identical train/validation splits (80/20)
-- Equal data balancing techniques to address class imbalance
+- Equal data balancing techniques using upsampling to address class imbalance
 - Standardized evaluation metrics for fair comparison
 
-This approach ensures that performance differences between models are due to architectural differences rather than data discrepancies.
+This approach ensures that performance differences between models are due to their architectural strengths rather than data discrepancies.
 
 ## Installation & Setup
 
@@ -72,19 +72,27 @@ This approach ensures that performance differences between models are due to arc
 
 ### Setup Steps
 
-1. **Install dependencies**:
+1. **Clone the repository**:
    ```
-   pip install torch transformers flask flask_cors pandas numpy scikit-learn matplotlib seaborn tqdm nltk
+   git clone https://github.com/your-username/hate-speech-detection.git
+   cd hate-speech-detection
    ```
 
-2. **Generate model files**:
+2. **Install dependencies**:
+   ```
+   pip install -r requirements.txt
+   ```
+
+3. **Generate model files** (choose one option):
+   
+   a. For quick demo with pre-generated models:
    ```
    python save_model_demo.py
    ```
-
-3. **Download pre-trained RoBERTa model** (optional - will download automatically when needed):
+   
+   b. To train your own models (recommended for better performance):
    ```
-   python -c "from transformers import RobertaTokenizer, RobertaModel; tokenizer = RobertaTokenizer.from_pretrained('roberta-base'); model = RobertaModel.from_pretrained('roberta-base')"
+   python train_models.py
    ```
 
 ## Usage
@@ -100,48 +108,6 @@ This approach ensures that performance differences between models are due to arc
 
 3. **Enter text** and select the model you want to use for classification
 
-## Training Your Own Models
+### Command Line Testing
 
-To train both models on Dataset_1.csv:
-
-1. **Run the unified training script**:
-   ```
-   python train_models.py
-   ```
-   This trains both LSTM-CNN and RoBERTa models on Dataset_1.csv with identical preprocessing and data splits.
-
-2. **Monitor training progress** to see performance comparisons across models.
-
-## Project Structure
-
-- `app.py` - Flask web application
-- `hate_speech_model.py` - Core LSTM-CNN model implementation
-- `roberta_model.py` - RoBERTa model implementation
-- `improved_models.py` - Enhanced model architectures
-- `train_models.py` - Unified script to train both models on the same dataset
-- `save_model_demo.py` - Quick script to generate model files
-- `model_explainer.py` - Model interpretability tools
-
-## Performance
-
-Our models achieve the following performance metrics on test data from Dataset_1.csv:
-
-| Model | Precision | Recall | F1 Score |
-|-------|-----------|--------|----------|
-| LSTM-CNN | 0.92 | 0.88 | 0.90 |
-| RoBERTa | 0.95 | 0.91 | 0.93 |
-
-## Dataset Information
-
-Both models are trained on the same dataset:
-- Dataset: `Dataset_1.csv` - Twitter hate speech dataset
-- Location: `../../Data/Dataset_1.csv`
-- Preprocessing: Identical for both models
-- Split: 80% training / 20% validation
-
-## Future Work
-
-- Implement multimodal analysis (text + image)
-- Add support for more languages
-- Develop more sophisticated context-aware classification
-- Create a browser extension for real-time hate speech detection
+For batch testing of examples:
