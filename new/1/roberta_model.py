@@ -45,6 +45,9 @@ def preprocess_for_roberta(text):
     text = re.sub(r'http\S+', '', text)
     # Remove extra whitespace
     text = re.sub(r'\s+', ' ', text).strip()
+    # Keep some punctuation that RoBERTa can use for context
+    # but remove others that might introduce noise
+    text = re.sub(r'[^\w\s\.\,\!\?\'\"\-]', '', text)
     return text
 
 def load_roberta_model(model_path=None):
